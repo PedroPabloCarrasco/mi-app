@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { use, useReducer } from 'react'
 
 
 
 const initialState = {
-  contador: 0,
+  contador: 10,
 }
 
 type ActionType = { type:'incrementar'};
@@ -21,7 +21,7 @@ const contadorReducer = (state: typeof initialState, action:ActionType) => {
      
   
     default:
-      break;
+      return state;
   }
 
 }
@@ -31,9 +31,15 @@ const contadorReducer = (state: typeof initialState, action:ActionType) => {
 
 
 export const ContadorRed = () => {
+
+  const [contadorState, dispatch] = useReducer(contadorReducer, initialState);
   return (
     <>
-    <h2>Contador: 10</h2>
+    <h2>Contador: { contadorState.contador}</h2>
+
+    <button className='btn btn-primary' onClick={() => dispatch({type:'incrementar'})}>+1
+    
+    </button>
     </>
   )
 }
